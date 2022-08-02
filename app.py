@@ -52,4 +52,4 @@ if __name__ == '__main__':
     th = threading.Thread(target=poll)
     th.start()
 
-    app.run()
+    app.run(host="0.0.0.0", port=5000)
