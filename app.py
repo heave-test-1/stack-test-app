@@ -1,4 +1,5 @@
 import os
+import threading
 import time
 
 from flask import Flask
@@ -30,4 +31,7 @@ def poll():
 
 
 if __name__ == '__main__':
+    th = threading.Thread(target=poll)
+    th.start()
+
     app.run()
