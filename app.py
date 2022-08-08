@@ -29,6 +29,8 @@ def hello_world():
             cursor = mysql.connection.cursor()
             cursor.execute('''SELECT 1''')
             cursor.fetchall()
+    else:
+        print("DB not found")
 
     has_redis = os.getenv("HAS_REDIS")
     if has_redis:
@@ -36,6 +38,8 @@ def hello_world():
         r = redis.Redis(host=os.getenv("REDIS_HOST"), port=int(os.getenv("REDIS_PORT")), db=0)
         r.set('foo', 'bar')
         print(r.get('foo'))
+    else:
+        print("Redis not found")
     
     return f'I am {os.getenv("ENV")}'
 
