@@ -22,6 +22,21 @@ count = 0
 
 @app.route('/')
 def hello_world():
+    has_db = os.getenv("HAS_DB")
+    if has_db:
+        print("Testing DB access")
+        with app.app_context():
+            cursor = mysql.connection.cursor()
+            cursor.execute('''SELECT 1''')
+            cursor.fetchall()
+
+    has_redis = os.getenv("HAS_REDIS")
+    if has_redis:
+        print("Testing Redis access")
+        r = redis.Redis(host=os.getenv("REDIS_HOST"), port=int(os.getenv("REDIS_PORT")), db=0)
+        r.set('foo', 'bar')
+        print(r.get('foo'))
+    
     return f'I am {os.getenv("ENV")}'
 
 
